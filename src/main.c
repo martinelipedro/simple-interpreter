@@ -3,23 +3,15 @@
 #include <stdio.h>
 
 #include "lexer.h"
-#include "dynamic_array.h"
-
-
+#include "casters.h"
 
 int main()
 {
-    dynamic_array_T* array = init_dynamic_array(sizeof(int*));
+    lexer_T* lexer = init_lexer("hello world");
+    lexer_collect_tokens(lexer);
 
-
-    int val1 = 56;
-    int val2 = 78;
-
-    dynamic_array_push(array, (void*)&val1);
-    dynamic_array_push(array, (void*)&val2);
-
-
-    dynamic_array_iterator_advance(array);
-    printf("%d", *(int*)dynamic_array_iterator_current(array));
-    printf("%d", *(int*)dynamic_array_iterator_previous(array));
+    token_out(as_token(dynamic_array_iterator_current(lexer->token_list)));
+    dynamic_array_iterator_advance(lexer->token_list);
+    token_out(as_token(dynamic_array_iterator_current(lexer->token_list)));
+    token_out(as_token(dynamic_array_iterator_next(lexer->token_list)));
 }

@@ -81,7 +81,7 @@ void* dynamic_array_iterator_next(dynamic_array_T* array)
 
 void dynamic_array_iterator_advance(dynamic_array_T* array)
 {
-    if (array->it_current_index > array->len - 1)
+    if (array->it_current_index >= array->len - 1)
     {
         printf("[ERROR]: next element doesn't exist. [advance]");
         exit(1);

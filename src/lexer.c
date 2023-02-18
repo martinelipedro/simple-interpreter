@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <ctype.h>
 
 token_T* init_token(int type, char* value)
 {
@@ -38,6 +39,50 @@ lexer_T* init_lexer(char* source)
     lexer->source = source;
     lexer->current_char = source[0];
     lexer->current_index = 0;
+    lexer->token_list = init_dynamic_array(sizeof(struct TOKEN_STRUCT));
 
     return lexer;
+}
+
+void lexer_collect_tokens(lexer_T* lexer)
+{
+    while (lexer->current_char)
+    {
+        if (isalpha(lexer->current_char))
+        {
+            lexer_collect_id(lexer);
+        }
+
+        switch (lexer->current_char)
+        {
+            case ' ':
+            case '\n':
+            case '\r': lexer_advance(lexer); break;
+
+            default: dynamic_array_push(lexer->token_list, (void*)init_token(TOK_EOF, "(null)")); break;
+        }  
+    }
+}
+
+void lexer_collect_id(lexer_T* lexer)
+{
+    char* buffer = calloc(1, sizeof(char));
+
+    while (isalpha(lexer->current_char))
+    {
+        buffer = realloc(buffer, (strlen(buffer) + 2) * sizeof(char));
+        strcat(buffer, (char[]){lexer->current_char, 0});
+        lexer_advance(lexer);
+    }
+
+    dynamic_array_push(lexer->token_list, (void*)init_token(TOK_ID, buffer));
+}
+
+void lexer_advance(lexer_T* lexer)
+{
+    if (lexer->current_char)
+    {
+        lexer->current_index += 1;
+        lexer->current_char = lexer->source[lexer->current_index];
+    }
 }
