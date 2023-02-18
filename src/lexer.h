@@ -8,6 +8,8 @@ typedef struct TOKEN_STRUCT
     enum
     {
         TOK_EOF = 0,
+        TOK_SEMI,
+
         TOK_ID, TOK_STRING, TOK_FLOAT, TOK_INTEGER,
 
 
