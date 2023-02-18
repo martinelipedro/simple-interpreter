@@ -58,8 +58,11 @@ void lexer_collect_tokens(lexer_T* lexer)
             case ' ':
             case '\n':
             case '\r': lexer_advance(lexer); break;
+            case '\'': lexer_collect_string(lexer); break;
 
+    
             case '=': dynamic_array_push(lexer->token_list, (void*)init_token(TOK_EQUALS, "=")); lexer_advance(lexer); break;
+            case ';': dynamic_array_push(lexer->token_list, (void*)init_token(TOK_SEMI, ";"));lexer_advance(lexer); break;
 
             default: dynamic_array_push(lexer->token_list, (void*)init_token(TOK_EOF, "(null)")); break;
         }  
@@ -78,6 +81,24 @@ void lexer_collect_id(lexer_T* lexer)
     }
 
     dynamic_array_push(lexer->token_list, (void*)init_token(TOK_ID, buffer));
+}
+
+void lexer_collect_string(lexer_T* lexer)
+{
+    char* buffer = calloc(1, sizeof(char));
+
+    lexer_advance(lexer);
+
+    while (lexer->current_char != '\'')
+    {
+        buffer = realloc(buffer, (strlen(buffer) + 2) * sizeof(char));
+        strcat(buffer, (char[]){lexer->current_char, 0});
+        lexer_advance(lexer);
+    }
+
+    lexer_advance(lexer);
+
+    dynamic_array_push(lexer->token_list, (void*)init_token(TOK_STRING, buffer));
 }
 
 void lexer_advance(lexer_T* lexer)
