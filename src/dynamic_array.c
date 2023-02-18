@@ -9,6 +9,7 @@ dynamic_array_T* init_dynamic_array(size_t element_size)
     array->len = 0;
     array->size = 0;
     array->element_size = element_size;
+    array->it_current_index = 0;
 
     return array;
 }
@@ -48,4 +49,43 @@ int dynamic_array_get_as_int(dynamic_array_T* array, unsigned int index)
 int* dynamic_array_get_as_int_pointer(dynamic_array_T* array, unsigned int index)
 {
     return (int*)(dynamic_array_get(array, index));
+}
+
+
+void* dynamic_array_iterator_previous(dynamic_array_T* array)
+{
+    if (array->it_current_index == 1)
+    {
+        printf("[ERROR]: previous element doesn't exist [previous]");
+        exit(1);
+    }
+
+    return array->values[array->it_current_index - 1];
+}
+
+void* dynamic_array_iterator_current(dynamic_array_T* array)
+{
+    return array->values[array->it_current_index];
+}
+
+void* dynamic_array_iterator_next(dynamic_array_T* array)
+{
+    if (array->it_current_index > array->len - 1)
+    {
+        printf("[ERROR]: next element doesn't exist. [next]");
+        exit(1);
+    }
+
+    return array->values[array->it_current_index + 1];
+}
+
+void dynamic_array_iterator_advance(dynamic_array_T* array)
+{
+    if (array->it_current_index > array->len - 1)
+    {
+        printf("[ERROR]: next element doesn't exist. [advance]");
+        exit(1);
+    }
+
+    array->it_current_index += 1;
 }
