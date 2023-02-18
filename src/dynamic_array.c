@@ -54,7 +54,7 @@ int* dynamic_array_get_as_int_pointer(dynamic_array_T* array, unsigned int index
 
 void* dynamic_array_iterator_previous(dynamic_array_T* array)
 {
-    if (array->it_current_index == 1)
+    if (array->it_current_index == 0)
     {
         printf("[ERROR]: previous element doesn't exist [previous]");
         exit(1);
@@ -70,7 +70,7 @@ void* dynamic_array_iterator_current(dynamic_array_T* array)
 
 void* dynamic_array_iterator_next(dynamic_array_T* array)
 {
-    if (array->it_current_index > array->len - 1)
+    if (array->it_current_index >= array->len - 1)
     {
         printf("[ERROR]: next element doesn't exist. [next]");
         exit(1);
