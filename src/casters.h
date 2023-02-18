@@ -1,7 +1,8 @@
 #ifndef CASTERS_H
 #define CASTERS_H
 
-int as_int(void* value);
-int* as_int_ptr(void* value);
+#define cast(x, y) ((x)y)
+#define as_token(x) cast(token_T*, x)
+
 
 #endif
