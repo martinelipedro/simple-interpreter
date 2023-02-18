@@ -18,6 +18,8 @@ int main()
     dynamic_array_push(array, (void*)&val1);
     dynamic_array_push(array, (void*)&val2);
 
-    printf("%d", dynamic_array_get_as_int(array, 0));
-    printf("%d", *dynamic_array_get_as_int_pointer(array, 1));
+
+    dynamic_array_iterator_advance(array);
+    printf("%d", *(int*)dynamic_array_iterator_current(array));
+    printf("%d", *(int*)dynamic_array_iterator_previous(array));
 }
