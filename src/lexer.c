@@ -59,6 +59,8 @@ void lexer_collect_tokens(lexer_T* lexer)
             case '\n':
             case '\r': lexer_advance(lexer); break;
 
+            case '=': dynamic_array_push(lexer->token_list, (void*)init_token(TOK_EQUALS, "=")); lexer_advance(lexer); break;
+
             default: dynamic_array_push(lexer->token_list, (void*)init_token(TOK_EOF, "(null)")); break;
         }  
     }
