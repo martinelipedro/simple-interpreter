@@ -4,3 +4,4 @@ A simple interpreter, made with C, completely handwritten and commented in Portu
 
 🇧🇷 O código comentado será futuramente adicionado a uma nova branch!
 
+![alt text](./.github/preview.jpeg)
