@@ -21,19 +21,29 @@ typedef struct
     struct AST_STRUCT* value;
 } ast_variable_definition;
 
+typedef struct
+{
+    char* function_name;
+    dynamic_array_T* arguments;
+
+} ast_function_call;
+
 typedef struct AST_STRUCT
 {   
     enum 
     {
+        AST_NOOP,
         AST_COMPOUND,
         AST_VARIABLE_DEFINITION,
         AST_STRING,
+        AST_FUNCTION_CALL,
 
     } type;
 
     ast_compound* compound;
     ast_variable_definition* variable_definition;
     ast_string* string;
+    ast_function_call* funcion_call;
 
 } ast_T;
 

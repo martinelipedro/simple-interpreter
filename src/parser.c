@@ -27,6 +27,12 @@ ast_T* parser_parse_statement(parser_T* parser)
     {
         case TOK_ID: return parser_parse_id(parser); break;
         case TOK_STRING: return parser_parse_string(parser); break;
+        default: 
+        {
+            parser_advance(parser);
+            return init_ast(AST_NOOP); 
+            break;
+        }
     }
 }
 
@@ -45,9 +51,10 @@ ast_T* parser_parse_compound(parser_T* parser)
 
 ast_T* parser_parse_id(parser_T* parser)
 {
-    if (parser_next(parser)->type == TOK_EQUALS)
+    switch (parser_next(parser)->type)
     {
-        return parser_parse_variable_definition(parser);
+        case TOK_EQUALS: return parser_parse_variable_definition(parser); break;
+        case TOK_LPAREN: return parser_parse_function_call(parser); break;
     }
 }
 
@@ -71,6 +78,13 @@ ast_T* parser_parse_string(parser_T* parser)
     string_ast->string->size = strlen(string_ast->string->value);
 
     return string_ast;
+}
+
+ast_T* parser_parse_function_call(parser_T* parser)
+{
+    ast_T* funcall_ast = init_ast(AST_FUNCTION_CALL);
+
+    funcall_ast->funcion_call->function_name = parser_eat(parser, TOK_ID)->value;
 }
 
 token_T* parser_previous(parser_T* parser)
