@@ -18,18 +18,25 @@ ast_T* init_ast(int type)
             ast->variable_definition = calloc(1, sizeof(ast_variable_definition));
             ast->variable_definition->name = (void*)0;
             ast->variable_definition->value = (void*)0;
+            break;
         }
         case AST_STRING:
         {
             ast->string = calloc(1, sizeof(ast_string));
             ast->string->value = (void*)0;
             ast->string->size = 0;
+            break;
         }
         case AST_FUNCTION_CALL:
         {
             ast->funcion_call = calloc(1, sizeof(ast_function_call));
             ast->funcion_call->function_name = (void*)0;
             ast->funcion_call->arguments = (void*)0;
+            break;
+        }
+        case AST_VARIABLE:
+        {
+            ast->variable->name = (void*)0;
         }
     }
 

@@ -28,6 +28,12 @@ typedef struct
 
 } ast_function_call;
 
+typedef struct
+{
+    char* name;
+
+} ast_variable;
+
 typedef struct AST_STRUCT
 {   
     enum 
@@ -37,6 +43,7 @@ typedef struct AST_STRUCT
         AST_VARIABLE_DEFINITION,
         AST_STRING,
         AST_FUNCTION_CALL,
+        AST_VARIABLE,
 
     } type;
 
@@ -44,6 +51,7 @@ typedef struct AST_STRUCT
     ast_variable_definition* variable_definition;
     ast_string* string;
     ast_function_call* funcion_call;
+    ast_variable* variable;
 
 } ast_T;
 
