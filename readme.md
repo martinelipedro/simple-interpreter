@@ -10,3 +10,9 @@ A simple interpreter, made with C, completely handwritten and commented in Portu
 variable = 'hello world!';
 print(variable, 'other line string');
 ```
+
+## Out
+```
+hello world!
+other line string
+```
