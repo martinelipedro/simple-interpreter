@@ -22,6 +22,8 @@ ast_T* visitor_visit(visitor_T* visitor, ast_T* node)
         case AST_VARIABLE_DEFINITION: return visitor_visit_variable_definition(visitor, node); break;
         case AST_STRING: return visitor_visit_string(visitor, node); break;
         case AST_FUNCTION_CALL: return visitor_visit_function_call(visitor, node); break;
+        case AST_NOOP: return init_ast(AST_NOOP); break;
+
     }
 
     printf("[ERROR]: Statement of type %d doesn't exist.", node->type);

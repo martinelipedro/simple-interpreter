@@ -1,1 +1,2 @@
 print('hello world!', 'another string');
+print('in other line');
