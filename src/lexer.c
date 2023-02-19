@@ -62,7 +62,9 @@ void lexer_collect_tokens(lexer_T* lexer)
 
     
             case '=': dynamic_array_push(lexer->token_list, (void*)init_token(TOK_EQUALS, "=")); lexer_advance(lexer); break;
-            case ';': dynamic_array_push(lexer->token_list, (void*)init_token(TOK_SEMI, ";"));lexer_advance(lexer); break;
+            case ';': dynamic_array_push(lexer->token_list, (void*)init_token(TOK_SEMI, ";")); lexer_advance(lexer); break;
+            case '(': dynamic_array_push(lexer->token_list, (void*)init_token(TOK_LPAREN, "(")); lexer_advance(lexer); break;
+            case ')': dynamic_array_push(lexer->token_list, (void*)init_token(TOK_RPAREN, ")"));lexer_advance(lexer); break;
         }
     }
     dynamic_array_push(lexer->token_list, (void*)init_token(TOK_EOF, "(null)"));

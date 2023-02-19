@@ -10,6 +10,8 @@ typedef struct TOKEN_STRUCT
         TOK_EOF = 0,
         TOK_SEMI,
 
+        TOK_LPAREN, TOK_RPAREN,
+
         TOK_ID, TOK_STRING, TOK_FLOAT, TOK_INTEGER,
 
 
