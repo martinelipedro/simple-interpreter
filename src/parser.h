@@ -20,6 +20,7 @@ ast_T* parser_parse_id(parser_T* parser);
 ast_T* parser_parse_variable_definition(parser_T* parser);
 ast_T* parser_parse_string(parser_T* parser);
 ast_T* parser_parse_function_call(parser_T* parser);
+ast_T* parser_parse_function_call_arguments(parser_T* parser);
 
 token_T* parser_previous(parser_T* parser);
 token_T* parser_current(parser_T* parser);

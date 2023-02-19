@@ -65,9 +65,22 @@ void lexer_collect_tokens(lexer_T* lexer)
             case ';': dynamic_array_push(lexer->token_list, (void*)init_token(TOK_SEMI, ";")); lexer_advance(lexer); break;
             case '(': dynamic_array_push(lexer->token_list, (void*)init_token(TOK_LPAREN, "(")); lexer_advance(lexer); break;
             case ')': dynamic_array_push(lexer->token_list, (void*)init_token(TOK_RPAREN, ")"));lexer_advance(lexer); break;
+            case ',': dynamic_array_push(lexer->token_list, (void*)init_token(TOK_COMMA, ","));lexer_advance(lexer); break;
+
         }
     }
-    dynamic_array_push(lexer->token_list, (void*)init_token(TOK_EOF, "(null)"));
+    lexer_make_end(lexer);
+}
+
+
+/* I know, horrible solution to generate more than one EOF and not worry about the end checking in the parser. */
+/* */
+void lexer_make_end(lexer_T* lexer)
+{
+    for (size_t i = 0; i < 2; i++)
+    {
+        dynamic_array_push(lexer->token_list, (void*)init_token(TOK_EOF, "(null)"));
+    }
 }
 
 void lexer_collect_id(lexer_T* lexer)

@@ -41,8 +41,9 @@ ast_T* parser_parse_compound(parser_T* parser)
     ast_T* compound = init_ast(AST_COMPOUND);
     dynamic_array_push(compound->compound, (void*)parser_parse_statement(parser));
 
-    while (parser_current(parser)->type == TOK_SEMI)
+    while (parser_current(parser)->type == TOK_SEMI && parser_next(parser) != TOK_EOF)
     {
+        parser_eat(parser, TOK_SEMI);
         dynamic_array_push(compound->compound, (void*)parser_parse_statement(parser));
     }
 
@@ -51,6 +52,7 @@ ast_T* parser_parse_compound(parser_T* parser)
 
 ast_T* parser_parse_id(parser_T* parser)
 {
+    
     switch (parser_next(parser)->type)
     {
         case TOK_EQUALS: return parser_parse_variable_definition(parser); break;
@@ -85,6 +87,34 @@ ast_T* parser_parse_function_call(parser_T* parser)
     ast_T* funcall_ast = init_ast(AST_FUNCTION_CALL);
 
     funcall_ast->funcion_call->function_name = parser_eat(parser, TOK_ID)->value;
+
+    parser_eat(parser, TOK_LPAREN);
+
+    if (parser_next(parser)->type != TOK_LPAREN)
+    {
+        funcall_ast->funcion_call->arguments = parser_parse_function_call_arguments(parser);
+    }
+    else
+    {
+        funcall_ast->funcion_call->arguments = init_ast(AST_NOOP);
+    }
+
+    return funcall_ast;
+}
+
+ast_T* parser_parse_function_call_arguments(parser_T* parser)
+{
+    ast_T* arguments_ast = init_ast(AST_COMPOUND);
+
+    dynamic_array_push(arguments_ast->compound, parser_parse_statement(parser));
+
+    while (parser_current(parser)->type == TOK_COMMA)
+    {
+        parser_eat(parser, TOK_COMMA);
+        dynamic_array_push(arguments_ast->compound, parser_parse_statement(parser));
+    }
+
+    return arguments_ast;
 }
 
 token_T* parser_previous(parser_T* parser)

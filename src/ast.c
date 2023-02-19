@@ -29,7 +29,7 @@ ast_T* init_ast(int type)
         {
             ast->funcion_call = calloc(1, sizeof(ast_function_call));
             ast->funcion_call->function_name = (void*)0;
-            ast->funcion_call->arguments = init_dynamic_array(sizeof(struct AST_STRUCT));
+            ast->funcion_call->arguments = (void*)0;
         }
     }
 
