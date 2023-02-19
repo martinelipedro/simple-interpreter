@@ -18,6 +18,6 @@ map_T* init_map(size_t values_size);
 void map_add(map_T* map, char* key, void* values);
 void* map_get(map_T* map, char* key);
 bool map_has_key(map_T* map, char* key);
-
+bool map_is_empty(map_T* map);
 
 #endif
