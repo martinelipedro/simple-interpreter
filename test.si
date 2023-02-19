@@ -1,2 +1,2 @@
-print('hello world!', 'another string');
-print('in other line');
+variable = 'hello world!';
+print(variable, 'other line string');

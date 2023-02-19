@@ -39,7 +39,7 @@ bool map_has_key(map_T* map, char* key)
 {
     for (size_t i = 0; i < map->len; i++)
     {
-        if ((char*)map->keys->values[i] == key)
+        if (strcmp((char*)map->keys->values[i], key) == 0)
         {
             return true;
         }

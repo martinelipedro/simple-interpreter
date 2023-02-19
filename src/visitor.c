@@ -22,6 +22,7 @@ ast_T* visitor_visit(visitor_T* visitor, ast_T* node)
         case AST_VARIABLE_DEFINITION: return visitor_visit_variable_definition(visitor, node); break;
         case AST_STRING: return visitor_visit_string(visitor, node); break;
         case AST_FUNCTION_CALL: return visitor_visit_function_call(visitor, node); break;
+        case AST_VARIABLE: return visitor_visit_variable(visitor, node); break;
         case AST_NOOP: return init_ast(AST_NOOP); break;
 
     }
@@ -59,5 +60,16 @@ ast_T* visitor_visit_function_call(visitor_T* visitor, ast_T* node)
     }
 
     printf("[ERROR]: Method not found.");
+    exit(1);
+}
+
+ast_T* visitor_visit_variable(visitor_T* visitor, ast_T* node)
+{
+    if (map_has_key(visitor->variables, node->variable->name))
+    {
+        return node;
+    }
+
+    printf("[ERROR]: Variable: %s not found.", node->variable->name);
     exit(1);
 }

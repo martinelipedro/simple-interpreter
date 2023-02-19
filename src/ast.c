@@ -36,6 +36,7 @@ ast_T* init_ast(int type)
         }
         case AST_VARIABLE:
         {
+            ast->variable = calloc(1, sizeof(ast_variable));
             ast->variable->name = (void*)0;
         }
     }

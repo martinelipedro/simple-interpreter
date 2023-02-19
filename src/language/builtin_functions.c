@@ -12,6 +12,11 @@ struct AST_STRUCT* builtin_function_print(visitor_T* visitor, ast_T* arguments)
         switch (current_argument->type)
         {
             case AST_STRING: printf("%s\n", current_argument->string->value); break;
+            case AST_VARIABLE: 
+            {
+                printf("%s\n", ((ast_T*)map_get(visitor->variables, current_argument->variable->name))->string->value);
+                break;
+            }
             default: printf("%p\n", current_argument);
         }
     }
