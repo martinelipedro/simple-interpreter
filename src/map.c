@@ -1,6 +1,7 @@
 #include "map.h"
 
 #include <stdio.h>
+#include <string.h>
 
 map_T* init_map(size_t values_size)
 {
@@ -24,7 +25,7 @@ void* map_get(map_T* map, char* key)
 {
     for (size_t i = 0; i < map->len; i++)
     {
-        if ((char*)map->keys->values[i] == key)
+        if (strcmp((char*)map->keys->values[i], key) == 0)
         {
             return map->values->values[i];
         }
@@ -42,6 +43,16 @@ bool map_has_key(map_T* map, char* key)
         {
             return true;
         }
+    }
+
+    return false;
+}
+
+bool map_is_empty(map_T* map)
+{
+    if (map->len == 0)
+    {
+        return true;
     }
 
     return false;
