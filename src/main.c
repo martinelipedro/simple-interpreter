@@ -6,13 +6,12 @@
 int main()
 
 {
-    lexer_T* lexer = init_lexer("hello = 'helloworld';print(hello)");
+    lexer_T* lexer = init_lexer("print('hello');");
     lexer_collect_tokens(lexer);
     parser_T* parser = init_parser(lexer->token_list);
     parser_parse(parser);
 
-    printf("%s", cast(ast_T*, parser->core_node->compound->values[0])->variable_definition->name);
-    printf("%lu", cast(ast_T*, parser->core_node->compound->values[0])->variable_definition->value->string->size);
+    printf("%s", cast(ast_T*, cast(ast_T*, parser->core_node->compound->values[0])->funcion_call->arguments->compound->values[0])->string->value);
 
 
 }

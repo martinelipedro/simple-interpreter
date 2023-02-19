@@ -8,7 +8,7 @@ typedef struct TOKEN_STRUCT
     enum
     {
         TOK_EOF = 0,
-        TOK_SEMI,
+        TOK_SEMI, TOK_COMMA,
 
         TOK_LPAREN, TOK_RPAREN,
 
@@ -42,6 +42,7 @@ token_T* lexer_get_next_token(lexer_T* lexer);
 void lexer_collect_tokens(lexer_T* lexer);
 void lexer_collect_id(lexer_T* lexer);
 void lexer_collect_string(lexer_T* lexer);
+void lexer_make_end(lexer_T* lexer);
 
 
 void lexer_advance(lexer_T* lexer);

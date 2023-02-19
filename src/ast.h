@@ -24,7 +24,7 @@ typedef struct
 typedef struct
 {
     char* function_name;
-    dynamic_array_T* arguments;
+    struct AST_STRUCT* arguments;
 
 } ast_function_call;
 
