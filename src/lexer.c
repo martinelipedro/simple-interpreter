@@ -63,10 +63,9 @@ void lexer_collect_tokens(lexer_T* lexer)
     
             case '=': dynamic_array_push(lexer->token_list, (void*)init_token(TOK_EQUALS, "=")); lexer_advance(lexer); break;
             case ';': dynamic_array_push(lexer->token_list, (void*)init_token(TOK_SEMI, ";"));lexer_advance(lexer); break;
-
-            default: dynamic_array_push(lexer->token_list, (void*)init_token(TOK_EOF, "(null)")); break;
-        }  
+        }
     }
+    dynamic_array_push(lexer->token_list, (void*)init_token(TOK_EOF, "(null)"));
 }
 
 void lexer_collect_id(lexer_T* lexer)

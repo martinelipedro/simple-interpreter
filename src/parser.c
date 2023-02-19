@@ -1,6 +1,10 @@
 #include "parser.h"
 
+#include <string.h>
 #include <stdio.h>
+
+
+#define mark printf("HERE!");
 
 parser_T* init_parser(dynamic_array_T* token_list)
 {
@@ -19,18 +23,10 @@ void parser_parse(parser_T* parser)
 
 ast_T* parser_parse_statement(parser_T* parser)
 {
-    if (parser_current(parser)->type == TOK_ID)
+    switch (parser_current(parser)->type)
     {
-        ast_T* test = init_ast(AST_VARIABLE_DEFINITION);
-        ast_T* var_val = init_ast(AST_STRING);
-
-        var_val->string->size = 2;
-        var_val->string->value = "value";
-
-        test->variable_definition->name = "hello";
-        test->variable_definition->value = var_val;
-
-        return test;
+        case TOK_ID: return parser_parse_id(parser); break;
+        case TOK_STRING: return parser_parse_string(parser); break;
     }
 }
 
@@ -47,6 +43,35 @@ ast_T* parser_parse_compound(parser_T* parser)
     return compound;
 }
 
+ast_T* parser_parse_id(parser_T* parser)
+{
+    if (parser_next(parser)->type == TOK_EQUALS)
+    {
+        return parser_parse_variable_definition(parser);
+    }
+}
+
+
+ast_T* parser_parse_variable_definition(parser_T* parser)
+{
+    ast_T* vardef_ast = init_ast(AST_VARIABLE_DEFINITION);
+
+    vardef_ast->variable_definition->name = parser_eat(parser, TOK_ID)->value;
+    parser_eat(parser, TOK_EQUALS);
+    vardef_ast->variable_definition->value = parser_parse_statement(parser);
+
+    return vardef_ast;
+}
+
+ast_T* parser_parse_string(parser_T* parser)
+{
+    ast_T* string_ast = init_ast(AST_STRING);
+
+    string_ast->string->value = parser_eat(parser, TOK_STRING)->value;
+    string_ast->string->size = strlen(string_ast->string->value);
+
+    return string_ast;
+}
 
 token_T* parser_previous(parser_T* parser)
 {
