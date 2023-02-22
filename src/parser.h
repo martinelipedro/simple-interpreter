@@ -25,7 +25,7 @@ ast_T* parser_parse_variable(parser_T* parser);
 
 ast_T* parser_parse_expr(parser_T* parser);
 ast_T* parser_parse_term(parser_T* parser);
-ast_T* parser_parse_fator(parser_T* parser);
+ast_T* parser_parse_factor(parser_T* parser);
 
 token_T* parser_previous(parser_T* parser);
 token_T* parser_current(parser_T* parser);

@@ -4,6 +4,7 @@
 #include "parser.h"
 #include "visitor.h"
 #include "file_reader.h"
+#include "casters.h"
 
 void run(int argc, char** argv)
 {
@@ -17,8 +18,13 @@ void run(int argc, char** argv)
     lexer_collect_tokens(lexer);
     parser_T* parser = init_parser(lexer->token_list);
     parser_parse(parser);
-    visitor_T* visitor = init_visitor();
-    visitor_visit(visitor, parser->core_node); 
+
+
+    printf("%s", cast(ast_T*, parser->core_node->compound->values[0])->binary_expr->rhs->binary_expr->lhs->literal_number->str);
+
+
+    // visitor_T* visitor = init_visitor();
+    // visitor_visit(visitor, parser->core_node); 
 }
 
 #endif

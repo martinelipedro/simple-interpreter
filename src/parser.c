@@ -27,6 +27,7 @@ ast_T* parser_parse_statement(parser_T* parser)
     {
         case TOK_ID: return parser_parse_id(parser); break;
         case TOK_STRING: return parser_parse_string(parser); break;
+        case TOK_NUMBER: return parser_parse_expr(parser); break;
         default: 
         {
             parser_advance(parser);
@@ -130,11 +131,80 @@ ast_T* parser_parse_expr(parser_T* parser)
 {
     ast_T* node = parser_parse_term(parser);
 
+    
 
+    while (parser_current(parser)->type == TOK_PLUS || parser_current(parser)->type == TOK_MINUS)
+    {
+        if (parser_current(parser)->type == TOK_PLUS)
+        {
+            parser_eat(parser, TOK_PLUS);
+
+            ast_T* new_node = init_ast(AST_BINARY_EXPR);
+            new_node->binary_expr->lhs = node;
+            new_node->binary_expr->operator = TOK_PLUS;
+            new_node->binary_expr->rhs = parser_parse_term(parser);
+            return new_node;
+        }
+        else
+        {
+            parser_eat(parser, TOK_MINUS);
+            ast_T* new_node = init_ast(AST_BINARY_EXPR);
+            new_node->binary_expr->lhs = node;
+            new_node->binary_expr->operator = TOK_MINUS;
+            new_node->binary_expr->rhs = parser_parse_term(parser);
+            return new_node;
+        }   
+    }
+
+    return node;
 }
 
-ast_T* parser_parse_term(parser_T* parser);
-ast_T* parser_parse_fator(parser_T* parser);
+ast_T* parser_parse_term(parser_T* parser)
+{
+    ast_T* node = parser_parse_factor(parser);
+
+    while (parser_current(parser)->type == TOK_STAR || parser_current(parser)->type == TOK_SLASH)
+    {
+        if (parser_current(parser)->type == TOK_STAR)
+        {
+            parser_eat(parser, TOK_STAR);
+            ast_T* new_node = init_ast(AST_BINARY_EXPR);
+            new_node->binary_expr->lhs = node;
+            new_node->binary_expr->operator = TOK_STAR;
+            new_node->binary_expr->rhs = parser_parse_factor(parser);
+            return new_node;
+        }
+        else
+        {
+            parser_eat(parser, TOK_SLASH);
+            ast_T* new_node = init_ast(AST_BINARY_EXPR);
+            new_node->binary_expr->lhs = node;
+            new_node->binary_expr->operator = TOK_SLASH;
+            new_node->binary_expr->rhs = parser_parse_factor(parser);
+            return new_node;
+        }   
+    }
+
+    return node;
+}
+
+ast_T* parser_parse_factor(parser_T* parser)
+{
+    token_T* token = parser_current(parser);
+
+    switch (token->type)
+    {
+        case TOK_NUMBER: 
+        {
+            ast_T* ast_number = init_ast(AST_LITERAL_NUMBER);
+            ast_number->literal_number->str = token->value;
+            ast_number->literal_number->value = atoi(token->value);
+            parser_eat(parser, TOK_NUMBER);
+            return ast_number;
+            break;
+        }
+    }
+}
 
 
 

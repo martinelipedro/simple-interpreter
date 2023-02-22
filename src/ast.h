@@ -44,7 +44,7 @@ typedef struct
 typedef struct
 {
     ast_T* lhs;
-    token_T* operator;
+    int operator;
     ast_T* rhs;
 
 } ast_binary_expr;

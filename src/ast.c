@@ -42,14 +42,16 @@ ast_T* init_ast(int type)
         }
         case AST_LITERAL_NUMBER:
         {
+            ast->literal_number = calloc(1, sizeof(ast_literal_number));
             ast->literal_number->str = (void*)0;
             ast->literal_number->value = 0;
             break;
         }
         case AST_BINARY_EXPR:
         {
+            ast->binary_expr = calloc(1, sizeof(ast_binary_expr));
             ast->binary_expr->lhs = (void*)0;
-            ast->binary_expr->operator = (void*)0;
+            ast->binary_expr->operator = 0;
             ast->binary_expr->rhs = (void*)0;
             break;
         }
