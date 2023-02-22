@@ -25,6 +25,7 @@ other line string
 - it is still only possible to perform calculations with 1 operation of each type (term, expr, factor)
 - generating a noop node at the beginning of the program
 - integers represented as floats (that was my laziness)
+- floating points doesnt work yet
   
 # Compilation
 
