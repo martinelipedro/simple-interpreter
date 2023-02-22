@@ -20,11 +20,9 @@ void run(int argc, char** argv)
     parser_parse(parser);
 
 
-    printf("%s", cast(ast_T*, parser->core_node->compound->values[0])->binary_expr->rhs->binary_expr->lhs->literal_number->str);
 
-
-    // visitor_T* visitor = init_visitor();
-    // visitor_visit(visitor, parser->core_node); 
+    visitor_T* visitor = init_visitor();
+    visitor_visit(visitor, parser->core_node); 
 }
 
 #endif

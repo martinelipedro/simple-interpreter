@@ -15,8 +15,11 @@ visitor_T* init_visitor()
 }
 
 
+
+
 ast_T* visitor_visit(visitor_T* visitor, ast_T* node)
 {
+
     switch (node->type)
     {
         case AST_COMPOUND: return visitor_visit_compound(visitor, node); break;
@@ -24,6 +27,8 @@ ast_T* visitor_visit(visitor_T* visitor, ast_T* node)
         case AST_STRING: return visitor_visit_string(visitor, node); break;
         case AST_FUNCTION_CALL: return visitor_visit_function_call(visitor, node); break;
         case AST_VARIABLE: return visitor_visit_variable(visitor, node); break;
+        case AST_BINARY_EXPR: return visitor_visit_binary_expr(visitor, node); break;
+        case AST_LITERAL_NUMBER: return visitor_visit_literal_number(visitor, node);
         case AST_NOOP: return init_ast(AST_NOOP); break;
 
     }
@@ -76,6 +81,28 @@ ast_T* visitor_visit_variable(visitor_T* visitor, ast_T* node)
 }
 
 
+ast_T* visitor_visit_binary_expr(visitor_T* visitor, ast_T* node)
+{
+    switch (node->binary_expr->operator)
+    {
+        case TOK_PLUS:
+        {
+            ast_T* result = init_ast(AST_LITERAL_NUMBER);
+            result->literal_number->value 
+                = visitor_visit(visitor, node->binary_expr->lhs)->literal_number->value
+                + visitor_visit(visitor, node->binary_expr->rhs)->literal_number->value;
+            
+            return result;
+            break;
+        }
+    }
+}
+
+ast_T* visitor_visit_literal_number(visitor_T* visitor, ast_T* node)
+{
+    return node;
+}
+
 void visitor_set_variable(visitor_T* visitor, ast_T* node)
 {
     map_add(visitor->variables, node->variable_definition->name, (void*)node->variable_definition->value);
@@ -83,5 +110,5 @@ void visitor_set_variable(visitor_T* visitor, ast_T* node)
 
 ast_T* visitor_get_variable(visitor_T* visitor, char* variable_name)
 {
-
+    return (ast_T*)map_get(visitor->variables, variable_name);
 }
