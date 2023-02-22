@@ -70,6 +70,11 @@ void lexer_collect_tokens(lexer_T* lexer)
             case '(': dynamic_array_push(lexer->token_list, (void*)init_token(TOK_LPAREN, "(")); lexer_advance(lexer); break;
             case ')': dynamic_array_push(lexer->token_list, (void*)init_token(TOK_RPAREN, ")"));lexer_advance(lexer); break;
             case ',': dynamic_array_push(lexer->token_list, (void*)init_token(TOK_COMMA, ","));lexer_advance(lexer); break;
+            case '+': dynamic_array_push(lexer->token_list, (void*)init_token(TOK_PLUS, "+"));lexer_advance(lexer); break;
+            case '-': dynamic_array_push(lexer->token_list, (void*)init_token(TOK_MINUS, "-"));lexer_advance(lexer); break;
+            case '*': dynamic_array_push(lexer->token_list, (void*)init_token(TOK_STAR, "*"));lexer_advance(lexer); break;
+            case '/': dynamic_array_push(lexer->token_list, (void*)init_token(TOK_SLASH, "/"));lexer_advance(lexer); break;
+
 
         }
     }
@@ -131,7 +136,7 @@ void lexer_collect_number(lexer_T* lexer)
             printf("Two dots in a single number!");
             exit(1);
         }
-        
+
         if (lexer->current_char == '.')
         {
             dot_count++;

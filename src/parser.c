@@ -125,6 +125,19 @@ ast_T* parser_parse_variable(parser_T* parser)
     return variable_ast;
 }
 
+
+ast_T* parser_parse_expr(parser_T* parser)
+{
+    ast_T* node = parser_parse_term(parser);
+
+
+}
+
+ast_T* parser_parse_term(parser_T* parser);
+ast_T* parser_parse_fator(parser_T* parser);
+
+
+
 token_T* parser_previous(parser_T* parser)
 {
     return (token_T*)dynamic_array_iterator_previous(parser->token_list); 

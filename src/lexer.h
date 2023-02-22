@@ -14,6 +14,8 @@ typedef struct TOKEN_STRUCT
 
         TOK_ID, TOK_STRING, TOK_NUMBER,
 
+        TOK_PLUS, TOK_MINUS, TOK_STAR, TOK_SLASH,
+
 
         TOK_EQUALS,
 
