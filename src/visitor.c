@@ -95,6 +95,36 @@ ast_T* visitor_visit_binary_expr(visitor_T* visitor, ast_T* node)
             return result;
             break;
         }
+        case TOK_MINUS:
+        {
+            ast_T* result = init_ast(AST_LITERAL_NUMBER);
+            result->literal_number->value 
+                = visitor_visit(visitor, node->binary_expr->lhs)->literal_number->value
+                - visitor_visit(visitor, node->binary_expr->rhs)->literal_number->value;
+            
+            return result;
+            break;
+        }
+        case TOK_STAR:
+        {
+            ast_T* result = init_ast(AST_LITERAL_NUMBER);
+            result->literal_number->value 
+                = visitor_visit(visitor, node->binary_expr->lhs)->literal_number->value
+                * visitor_visit(visitor, node->binary_expr->rhs)->literal_number->value;
+            
+            return result;
+            break;
+        }
+        case TOK_SLASH:
+        {
+            ast_T* result = init_ast(AST_LITERAL_NUMBER);
+            result->literal_number->value 
+                = visitor_visit(visitor, node->binary_expr->lhs)->literal_number->value
+                / visitor_visit(visitor, node->binary_expr->rhs)->literal_number->value;
+            
+            return result;
+            break;
+        }
     }
 }
 
