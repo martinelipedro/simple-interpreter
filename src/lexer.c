@@ -52,6 +52,10 @@ void lexer_collect_tokens(lexer_T* lexer)
         {
             lexer_collect_id(lexer);
         }
+        else if (isdigit(lexer->current_char))
+        {
+            lexer_collect_number(lexer);
+        }
 
         switch (lexer->current_char)
         {
@@ -113,6 +117,33 @@ void lexer_collect_string(lexer_T* lexer)
     lexer_advance(lexer);
 
     dynamic_array_push(lexer->token_list, (void*)init_token(TOK_STRING, buffer));
+}
+
+void lexer_collect_number(lexer_T* lexer)
+{
+    char* buffer = calloc(1, sizeof(char));
+    int dot_count = 0;
+
+    while (isdigit(lexer->current_char) || lexer->current_char == '.')
+    {
+        if (dot_count > 2)
+        {
+            printf("Two dots in a single number!");
+            exit(1);
+        }
+        
+        if (lexer->current_char == '.')
+        {
+            dot_count++;
+        }
+        
+
+        buffer = realloc(buffer, (strlen(buffer) + 2) * sizeof(char));
+        strcat(buffer, (char[]){lexer->current_char, 0});
+        lexer_advance(lexer);
+    }
+
+    dynamic_array_push(lexer->token_list, (void*)init_token(TOK_NUMBER, buffer));
 }
 
 void lexer_advance(lexer_T* lexer)

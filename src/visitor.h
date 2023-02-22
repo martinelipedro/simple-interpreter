@@ -23,4 +23,8 @@ ast_T* visitor_visit_string(visitor_T* visitor, ast_T* node);
 ast_T* visitor_visit_function_call(visitor_T* visitor, ast_T* node);
 ast_T* visitor_visit_variable(visitor_T* visitor, ast_T* node);
 
+void visitor_set_variable(visitor_T* visitor, ast_T* variable);
+ast_T* visitor_get_variable(visitor_T* visitor, char* variable_name);
+
+
 #endif

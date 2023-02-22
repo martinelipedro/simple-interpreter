@@ -64,7 +64,6 @@ ast_T* parser_parse_id(parser_T* parser)
 ast_T* parser_parse_variable_definition(parser_T* parser)
 {
     ast_T* vardef_ast = init_ast(AST_VARIABLE_DEFINITION);
-
     vardef_ast->variable_definition->name = parser_eat(parser, TOK_ID)->value;
     parser_eat(parser, TOK_EQUALS);
     vardef_ast->variable_definition->value = parser_parse_statement(parser);

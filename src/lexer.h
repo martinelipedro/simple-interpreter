@@ -12,7 +12,7 @@ typedef struct TOKEN_STRUCT
 
         TOK_LPAREN, TOK_RPAREN,
 
-        TOK_ID, TOK_STRING, TOK_FLOAT, TOK_INTEGER,
+        TOK_ID, TOK_STRING, TOK_NUMBER,
 
 
         TOK_EQUALS,
@@ -42,6 +42,7 @@ token_T* lexer_get_next_token(lexer_T* lexer);
 void lexer_collect_tokens(lexer_T* lexer);
 void lexer_collect_id(lexer_T* lexer);
 void lexer_collect_string(lexer_T* lexer);
+void lexer_collect_number(lexer_T* lexer);
 void lexer_make_end(lexer_T* lexer);
 
 

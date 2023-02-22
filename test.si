@@ -1,2 +1,1 @@
-variable = 'hello world!';
-print(variable, 'other line string');
+5

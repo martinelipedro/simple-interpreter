@@ -14,6 +14,7 @@ visitor_T* init_visitor()
     return visitor;
 }
 
+
 ast_T* visitor_visit(visitor_T* visitor, ast_T* node)
 {
     switch (node->type)
@@ -43,7 +44,7 @@ ast_T* visitor_visit_compound(visitor_T* visitor, ast_T* node)
 
 ast_T* visitor_visit_variable_definition(visitor_T* visitor, ast_T* node)
 {
-    map_add(visitor->variables, node->variable_definition->name, (void*)node->variable_definition->value);
+    visitor_set_variable(visitor, node);
     return node;
 }
 
@@ -72,4 +73,15 @@ ast_T* visitor_visit_variable(visitor_T* visitor, ast_T* node)
 
     printf("[ERROR]: Variable: %s not found.", node->variable->name);
     exit(1);
+}
+
+
+void visitor_set_variable(visitor_T* visitor, ast_T* node)
+{
+    map_add(visitor->variables, node->variable_definition->name, (void*)node->variable_definition->value);
+}
+
+ast_T* visitor_get_variable(visitor_T* visitor, char* variable_name)
+{
+
 }
