@@ -1,3 +1,0 @@
-a = 5 * 15.5 + 10;
-string = 'hello';
-print(a, string);
