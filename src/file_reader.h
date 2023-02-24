@@ -19,7 +19,7 @@ char* get_file_contents(char* filepath)
         buffer = calloc(lenght, lenght);
         if (buffer)
         {
-            fread(buffer, 1, lenght, file);
+            (void)!fread(buffer, 1, lenght, file);
         }
 
         fclose(file);

@@ -5,7 +5,6 @@
 
 #include "language/builtin_functions.h"
 
-
 visitor_T* init_visitor()
 {
     visitor_T* visitor = calloc(1, sizeof(struct VISITOR_STRUCT));
@@ -13,9 +12,6 @@ visitor_T* init_visitor()
 
     return visitor;
 }
-
-
-
 
 ast_T* visitor_visit(visitor_T* visitor, ast_T* node)
 {

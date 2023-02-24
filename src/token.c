@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-
 token_T* init_token(int type, char* value)
 {
     token_T* token = calloc(1, sizeof(struct TOKEN_STRUCT));
@@ -21,7 +20,7 @@ char* token_get_repr_string(token_T* token)
     size_t token_type_size = strlen("xx");
     
     buffer = realloc(buffer, (token_value_size, token_other_size, token_type_size + 1) * sizeof(char));
-    sprintf(buffer, "( %d : %s )", token->type, token->value);
+    snprintf(buffer, (token_value_size, token_other_size, token_type_size + 1), "( %d : %s )",  token->type, token->value);
 
     return buffer;
 }

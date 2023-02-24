@@ -3,9 +3,6 @@
 #include <string.h>
 #include <stdio.h>
 
-
-#define mark printf("HERE!");
-
 parser_T* init_parser(dynamic_array_T* token_list)
 {
     parser_T* parser = calloc(1, sizeof(struct PARSER_STRUCT));
@@ -131,8 +128,6 @@ ast_T* parser_parse_expr(parser_T* parser)
 {
     ast_T* node = parser_parse_term(parser);
 
-    
-
     while (parser_current(parser)->type == TOK_PLUS || parser_current(parser)->type == TOK_MINUS)
     {
         if (parser_current(parser)->type == TOK_PLUS)
@@ -205,8 +200,6 @@ ast_T* parser_parse_factor(parser_T* parser)
         }
     }
 }
-
-
 
 token_T* parser_previous(parser_T* parser)
 {

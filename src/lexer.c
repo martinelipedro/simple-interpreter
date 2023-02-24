@@ -5,8 +5,6 @@
 #include <stdio.h>
 #include <ctype.h>
 
-
-
 lexer_T* init_lexer(char* source)
 {
     lexer_T* lexer = calloc(1, sizeof(struct LEXER_STRUCT));
@@ -113,7 +111,6 @@ void lexer_collect_number(lexer_T* lexer)
             dot_count++;
         }
         
-
         buffer = realloc(buffer, (strlen(buffer) + 2) * sizeof(char));
         strcat(buffer, (char[]){lexer->current_char, 0});
         lexer_advance(lexer);

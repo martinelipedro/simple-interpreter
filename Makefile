@@ -7,7 +7,7 @@ EXE_NAME = simple_interpreter
 .PHONY: all clean
 
 all: $(OBJECTS) $(HEADERS)
-	gcc $^ -o $(EXE_NAME)
+	gcc $^ -o $(EXE_NAME) -O2
 
 clean:
 	rm -rf $(OBJECTS)

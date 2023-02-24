@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-struct AST_STRUCT* builtin_function_print(visitor_T* visitor, ast_T* arguments)
+ast_T* builtin_function_print(visitor_T* visitor, ast_T* arguments)
 {
     for (size_t i = 0; i < arguments->compound->len; i++)
     {
