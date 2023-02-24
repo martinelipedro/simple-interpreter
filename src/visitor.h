@@ -5,7 +5,6 @@
 #include "map.h"
 #include "ast.h"
 
-
 typedef struct VISITOR_STRUCT
 {
     map_T* variables;

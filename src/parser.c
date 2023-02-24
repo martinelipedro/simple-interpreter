@@ -42,7 +42,7 @@ ast_T* parser_parse_compound(parser_T* parser)
     ast_T* compound = init_ast(AST_COMPOUND);
     dynamic_array_push(compound->compound, (void*)parser_parse_statement(parser));
 
-    while (parser_current(parser)->type == TOK_SEMI)
+    while (parser_current(parser)->type)
     {
         parser_eat(parser, TOK_SEMI);
         dynamic_array_push(compound->compound, (void*)parser_parse_statement(parser));
@@ -221,7 +221,7 @@ token_T* parser_current(parser_T* parser)
 
 token_T* parser_next(parser_T* parser)
 {
-    return (token_T*)dynamic_array_iterator_next(parser->token_list); 
+    return (token_T*)dynamic_array_iterator_next(parser->token_list);
 
 }
 
